@@ -7,11 +7,7 @@
 // Подключаем слайдер Swiper из node_modules
 // При необходимости подключаем дополнительные модули слайдера, указывая их в {} через запятую
 // Пример: { Navigation, Autoplay }
-import Swiper, {
-	Navigation,
-	Pagination,
-	Autoplay
-} from 'swiper';
+import Swiper, { Navigation } from 'swiper';
 /*
 Основниые модули слайдера:
 Navigation, Pagination, Autoplay, 
@@ -25,63 +21,63 @@ import "../../scss/base/swiper.scss";
 // Полный набор стилей из scss/libs/swiper.scss
 // import "../../scss/libs/swiper.scss";
 // Полный набор стилей из node_modules
-import 'swiper/css';
+// import 'swiper/css';
 
-// Добавление классов слайдерам
-// swiper главному блоку, swiper-wrapper оболочке, swiper-slide для слайдов
-function bildSliders() {
-	//BildSlider
-	let sliders = document.querySelectorAll('[class*="__swiper"]:not(.swiper-wrapper)');
-	if (sliders) {
-		sliders.forEach(slider => {
-			slider.parentElement.classList.add('swiper');
-			slider.classList.add('swiper-wrapper');
-			for (const slide of slider.children) {
-				slide.classList.add('swiper-slide');
-			}
-		});
-	}
-}
 // Инициализация слайдеров
 function initSliders() {
-	// Добавление классов слайдера
-	// при необходимости отключить
-	bildSliders();
-
 	// Перечень слайдеров
-	if (document.querySelector('.no-swiper')) {
-		new Swiper('.no-swiper', {
+	// Проверяем, есть ли слайдер на стронице
+	if (document.querySelector('.swiper')) { // Указываем скласс нужного слайдера
+		// Создаем слайдер
+		new Swiper('.swiper', { // Указываем скласс нужного слайдера
 			// Подключаем модули слайдера
 			// для конкретного случая
-			//modules: [Navigation, Pagination],
-			/*
-			effect: 'fade',
-			autoplay: {
-				delay: 3000,
-				disableOnInteraction: false,
-			},
-			*/
+			modules: [Navigation],
 			observer: true,
 			observeParents: true,
 			slidesPerView: 1,
 			spaceBetween: 0,
 			autoHeight: true,
 			speed: 800,
+
 			//touchRatio: 0,
 			//simulateTouch: false,
 			//loop: true,
 			//preloadImages: false,
 			//lazy: true,
-			// Dotts
-			//pagination: {
-			//	el: '.brands__pagination',
-			//	clickable: true,
-			//},
-			// Arrows
-			navigation: {
-				nextEl: '.about__more .more__item_next',
-				prevEl: '.about__more .more__item_prev',
+
+			/*
+			// Эффекты
+			effect: 'fade',
+			autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
 			},
+			*/
+
+			// Пагинация
+			/*
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			*/
+
+			// Скроллбар
+			/*
+			scrollbar: {
+				el: '.swiper-scrollbar',
+				draggable: true,
+			},
+			*/
+
+			// Кнопки "влево/вправо"
+			navigation: {
+				prevEl: '.swiper-button-prev',
+				nextEl: '.swiper-button-next',
+			},
+
+			// Брейкпоинты
 			/*
 			breakpoints: {
 				320: {
@@ -103,26 +99,15 @@ function initSliders() {
 				},
 			},
 			*/
+			// События
 			on: {
 
 			}
 		});
 	}
-
 }
-
-function include(url) {
-	var script = document.createElement('script');
-	script.src = url;
-	document.getElementsByTagName('head')[0].appendChild(script);
-}
-
 // Скролл на базе слайдера (по классу swiper_scroll для оболочки слайдера)
 function initSlidersScroll() {
-	// Добавление классов слайдера
-	// при необходимости отключить
-	bildSliders();
-
 	let sliderScrollItems = document.querySelectorAll('.swiper_scroll');
 	if (sliderScrollItems.length > 0) {
 		for (let index = 0; index < sliderScrollItems.length; index++) {
